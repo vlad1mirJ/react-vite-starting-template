@@ -1,22 +1,20 @@
-import { HashRouter, Routes, Route } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Home from './pages/Home'
 import NotFound from './pages/NotFound'
 
-export function App() {
-  return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
-  )
+const router = createBrowserRouter([
+  {
+    path: '/',
+    Component: Home,
+  },
+  {
+    path: '*',
+    Component: NotFound,
+  },
+])
+
+function App() {
+  return <RouterProvider router={router} />
 }
 
-export function WithWrappers() {
-  return (
-    <HashRouter>
-      <App />
-    </HashRouter>
-  )
-}
-
-export default WithWrappers
+export default App
