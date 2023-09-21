@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/react'
-import { MemoryRouter } from 'react-router-dom'
-import { App, WithWrappers } from './App'
+import { RouterProvider, createMemoryRouter } from 'react-router-dom'
+import App, { routes } from './App'
 
 describe('App', () => {
   it('should render Hello Vladimir', () => {
     // Arrange
-    render(<WithWrappers />)
+    render(<App />)
     const heading = screen.getByRole('heading', {
       level: 1,
     })
@@ -16,11 +16,11 @@ describe('App', () => {
 
   it('should render Not Found if path is invalid', () => {
     // Arrange
-    render(
-      <MemoryRouter initialEntries={['/wrongRoute']}>
-        <App />
-      </MemoryRouter>
-    )
+    const router = createMemoryRouter(routes, {
+      initialEntries: ['/wrongRoute'],
+    })
+    render(<RouterProvider router={router} />)
+
     const heading = screen.getByRole('heading', {
       level: 1,
     })
